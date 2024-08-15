@@ -1,0 +1,84 @@
+.fee-card {
+    padding: 24px;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid var(--borderColor);
+    border-radius: 14px;
+    background: white;
+
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 24px;
+
+    cursor: pointer;
+
+    transition: all var(--animationDuration) ease-in-out;
+
+    .tag:first-child {
+        margin-left: 16px;
+    }
+
+    .tag + .tag {
+        margin-left: 12px;
+    }
+
+    &.fee-card--active {
+        border-color: var(--accentColor);
+    }
+
+    &:hover {
+        .fee-card__edit {
+            color: var(--accentColorActive);
+        }
+    }
+
+    &:active {
+        .fee-card__edit {
+            color: var(--accentColorActive);
+        }
+    }
+
+    &:disabled {
+        color: var(--mutedTextColor);
+    }
+}
+
+.fee-card__edit {
+    all: unset;
+
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: var(--accentColor);
+
+    cursor: pointer;
+
+    transition: all var(--animationDuration) ease-in-out;
+
+    &:hover {
+        color: var(--accentColorActive);
+    }
+
+    &:active {
+        color: var(--accentColorActive);
+    }
+
+    &:disabled {
+        color: var(--mutedTextColor);
+    }
+}
+
+.fee-card--disabled {
+    pointer-events: none;
+    cursor: default;
+}

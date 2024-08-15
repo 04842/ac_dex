@@ -1,0 +1,832 @@
+@import '~react-input-range/lib/css/index.css';
+@import './styles/mixins';
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+@keyframes opacityAndScale {
+    0% {
+        opacity: 0;
+        transform: scale(.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+html {
+    --accentColor: #0088CC;
+    --accentLightColor: rgba(0, 136, 204, 0.16);;
+    --accentColorHover: #009ce8;
+    --accentColorActive: #0072ab;
+    --darkColor: #303757;
+
+    --greenColor: #0EA45C;
+    --greenLightColor: rgba(14, 164, 92, 0.16);
+
+    --mainBackgroundColor: #ffffff;
+    --defaultTextColor: var(--darkColor);
+    --secondaryTextColor: #666666;
+    --alternativeTextColor: #ffffff;
+    --mutedTextColor: #83879a;
+    --mutedTextColorHover: #74757d;
+    --borderColor: #dedfe4;
+
+    --shadowColor: rgba(0, 0, 0, 0.5);
+
+    --skeletonColor: #F3F4F5;
+
+    --successColor: #2ecc71;
+    --dangerColor: #FF4954;
+    --dangerColorHover: #ff6770;
+    --dangerColorActive: #e6313c;
+    --warningColor: #FFEB3B;
+
+    --animationDuration: 250ms;
+
+    --hoverColor: #f5f5f7;
+    --activeColor: #ecebeb;
+
+    color: var(--defaultTextColor);
+}
+
+body, button, input {
+    font-family: 'Mulish', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+h4 {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 23px;
+}
+
+.router-enter {
+    opacity: 0;
+
+    transform: scale(0.9);
+}
+
+.router-enter-active {
+    opacity: 1;
+    transform: scale(1);
+
+    transition: all var(--animationDuration) ease-in-out;
+}
+
+.router-exit {
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+.router-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+
+    transition: all var(--animationDuration) ease-in-out, opacity calc(var(--animationDuration) / 2) ease-in-out;
+}
+
+.main {
+    min-height: calc(100vh - 188px);
+
+    display: grid;
+    grid-template-areas: "main";
+
+    > * {
+        grid-area: main;
+    }
+}
+
+.page {
+}
+
+.page-title {
+    margin: 0;
+}
+
+.page-head {
+    display: flex;
+    align-items: center;
+
+    .button {
+        margin-left: auto;
+    }
+}
+
+.page-head--subpage {
+    justify-content: space-between;
+}
+
+.page-back {
+    display: flex;
+    align-items: center;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: var(--accentColor);
+
+    text-decoration: none;
+
+    svg {
+        margin-right: 8px;
+    }
+}
+
+.subpage-title {
+    margin-left: 32px;
+
+    display: flex;
+    align-items: center;
+
+    font-weight: 800;
+    font-size: 19px;
+    line-height: 24px;
+
+    .tag {
+        margin-left: 14px;
+    }
+}
+
+.page-head--pool {
+    .page-toolbar {
+        margin-left: auto;
+    }
+}
+
+.page-content {
+    margin-top: 32px;
+}
+
+.page-content-liquidity {
+    margin-top: 32px;
+}
+
+@keyframes opacity-0-1 {
+    0% {
+        opacity: 0;
+        transform: scale(.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.page-content-liquidity__info {
+    padding: 24px;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+
+    background: rgba(48, 55, 87, 0.05);
+
+    border-radius: 24px;
+
+    animation: var(--animationDuration) opacity-0-1;
+}
+
+.page-content__empty {
+    margin-top: 80px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .button {
+        margin-top: 23px;
+
+        width: 300px;
+    }
+}
+
+.page-content__empty__text {
+    margin-top: 32px;
+
+    font-weight: normal;
+    font-size: 19px;
+    line-height: 24px;
+
+    text-align: center;
+
+    color: var(--mutedTextColor);
+}
+
+.page-tabs {
+    margin-left: 24px;
+
+    display: flex;
+    align-items: center;
+
+    .page-tab {
+        padding: 8px 18px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 18px;
+        border: none;
+
+        background-color: white;
+
+        box-shadow: inset 0 0 0 2px var(--accentColor);
+        border-radius: 25px;
+
+        color: var(--accentColor);
+
+        cursor: pointer;
+
+        transition: all var(--animationDuration) ease-in-out;
+
+        animation: var(--animationDuration) opacityAndScale;
+
+        .page-tab__count {
+            margin-left: .5ch;
+
+            color: rgba(0, 136, 204, 0.6);
+
+            transition: all var(--animationDuration) ease-in-out;
+        }
+
+        &:hover {
+            color: white;
+            background-color: var(--accentColor);
+
+            .page-tab__count {
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        &:active {
+            color: white;
+            background-color: var(--accentColorActive);
+            box-shadow: inset 0 0 0 2px var(--accentColorActive);
+
+            .page-tab__count {
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        &.active {
+            cursor: default;
+            pointer-events: none;
+
+            color: white;
+            background-color: var(--accentColor);
+
+            .page-tab__count {
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+    }
+
+    .page-tab + .page-tab {
+        margin-left: 12px;
+    }
+}
+
+.page-toolbar {
+    display: flex;
+
+    .page-toolbar__icon-button {
+        padding: 0;
+        background-color: transparent;
+        border: none;
+
+        cursor: pointer;
+    }
+
+    .page-toolbar__icon-button + .page-toolbar__icon-button {
+        margin-left: 16px;
+    }
+
+    .button + .button {
+        margin-left: 16px;
+    }
+}
+
+.page-blocks {
+    margin-top: 32px;
+
+    display: grid;
+    grid-template-columns: .5fr .5fr;
+    grid-gap: 25px;
+}
+
+.page-block + .page-block {
+    margin-top: 32px;
+}
+
+.page-block__title {
+    margin-bottom: 24px;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.page-blocks__col--duck {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    span {
+        margin-top: 26px;
+
+        max-width: 300px;
+
+        font-size: 19px;
+        line-height: 24px;
+
+        color: var(--mutedTextColor);
+    }
+}
+
+h1 {
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.liquidity-prices {
+    display: grid;
+    grid-template-columns: .5fr .5fr;
+    grid-gap: 16px;
+}
+
+.liquidity-price--disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: .5;
+}
+
+.liquidity-price__title {
+    margin-bottom: 8px;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.liquidity-price-card {
+    padding: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-radius: 14px;
+    border: 1px solid var(--borderColor);
+}
+
+.liquidity-price-card__button {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--accentLightColor);
+    border: none;
+    border-radius: 14px;
+
+    color: var(--accentColor);
+
+    cursor: pointer;
+}
+
+.liquidity-price-card__amount {
+    input {
+        width: 100px;
+
+        padding: 0;
+
+        font-weight: 600;
+        font-size: 19px;
+        line-height: 25px;
+
+        border: none;
+
+        text-align: center;
+
+        outline: none;
+    }
+}
+
+.liquidity-summary-card {
+    padding: 32px;
+
+    border: 1px solid var(--borderColor);
+    border-radius: 24px;
+}
+
+.liquidity-summary-card-cols {
+    margin-bottom: 24px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.liquidity-summary-card-col {
+    text-align: center;
+}
+
+.liquidity-summary-card-col__value {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.liquidity-summary-card-col__name {
+    margin-top: 8px;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.page-block__content--range {
+    margin-bottom: 60px;
+}
+
+.price-input {
+    padding: 16px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid var(--borderColor);
+    border-radius: 14px;
+
+    input {
+        width: 60%;
+
+        border: none;
+        border-radius: 0;
+        outline: none;
+
+        font-family: 'Fira Code', monospace;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 19px;
+        line-height: 25px;
+
+        &::placeholder {
+        }
+    }
+
+    .price-input__info {
+        margin-left: auto;
+
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 20px;
+
+        color: var(--mutedTextColor);
+    }
+}
+
+.input-range__slider {
+    background: white;
+    border: 3px solid var(--accentColor);
+    height: 15px;
+    width: 15px;
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing !important;
+    }
+}
+
+.input-range__track {
+    background: var(--borderColor);
+    border-radius: 33px;
+    height: 5px;
+}
+
+.input-range__track--active {
+    background: var(--accentColor);
+    height: 5px;
+}
+
+.input-range__label {
+    color: var(--defaultTextColor);
+
+    font-family: 'Mulish', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.input-range__label--min,
+.input-range__label--max {
+    bottom: -28px;
+    display: none;
+}
+
+.input-range__label--value {
+    top: 16px;
+}
+
+.page-charts {
+    display: grid;
+    grid-template-columns: .5fr .5fr;
+    grid-gap: 25px;
+}
+
+.chart-card__label {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: var(--mutedTextColor);
+}
+
+.chart-card__value {
+    margin-top: 6px;
+
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.chart-card__chart {
+    margin-top: 24px;
+
+    max-width: 100%;
+
+    canvas {
+        max-width: 100%;
+    }
+}
+
+.pool-page-charts {
+    display: grid;
+    grid-template-columns: 0.375fr 0.625fr;
+    grid-gap: 25px;
+}
+
+.pool-information-card {
+
+}
+
+.pool-information-card-items {
+
+}
+
+.pool-information-card-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pool-information-card-item__name {
+    display: flex;
+    align-items: center;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+
+    .token-icon {
+        margin-left: 8px;
+    }
+}
+
+.pool-information-card-item__value {
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 24px;
+}
+
+.pool-information-card-item + .pool-information-card-item {
+    margin-top: 16px;
+}
+
+.pool-page-charts-info {
+    margin-top: 24px;
+
+    width: 100%;
+
+    padding: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border: 1px solid var(--borderColor);
+    border-radius: 14px;
+}
+
+.pool-page-charts-info__left,
+.pool-page-charts-info__right {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.pool-page-charts-info__left {
+    .token-icon {
+        margin-right: 12px;
+    }
+}
+
+.pool-page-charts-info__right {
+    .token-icon {
+        margin-left: 12px;
+    }
+}
+
+.pool-page-charts-info__divider {
+    height: 24px;
+    width: 1px;
+
+    background-color: var(--borderColor);
+}
+
+.main-page__cards-grid {
+    display: grid;
+    grid-template-columns: .43fr .57fr;
+    grid-gap: 25px;
+}
+
+.popular-swaps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.add-liquidity-page {
+    .token-amount-input {
+        .token-amount-input__currency-select {
+            margin-top: 0;
+        }
+
+        .token-amount-input__currency {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+@include tablet {
+    .main-page__cards-grid {
+        margin-top: 0;
+
+        display: block;
+    }
+
+    .App {
+        padding: 0 25px;
+    }
+
+    .popular-swaps {
+        .pair-card {
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .pair-card + .pair-card {
+            margin-left: 0;
+            margin-top: 16px;
+        }
+    }
+
+    .page-title {
+        font-weight: 900;
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .page-head {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .button {
+            margin-left: 0;
+            margin-top: 32px;
+        }
+
+        .page-tabs {
+            margin-left: 0;
+            margin-top: 16px;
+        }
+    }
+
+    .page-toolbar {
+        display: flex;
+
+        flex-direction: column;
+    }
+
+    .page-head--subpage {
+        .page-title {
+            margin-top: 24px;
+        }
+
+        .page-toolbar {
+            margin-top: 16px;
+
+            flex-direction: row;
+        }
+    }
+
+    .page-blocks {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .liquidity-prices {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .liquidity-summary-card-cols {
+        display: flex;
+        flex-direction: column;
+
+        .liquidity-summary-card-col {
+            margin-top: 16px;
+        }
+    }
+
+    .fee-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .tag:first-child {
+            margin-top: 16px;
+            margin-left: 0;
+        }
+
+        .tag + .tag {
+            margin-top: 12px;
+            margin-left: 0;
+        }
+    }
+
+    .fee-card__edit {
+        margin-top: 16px !important;
+
+        margin-left: 0 !important;
+
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    .liquidity-price-card {
+        width: 100% !important;
+    }
+
+    .page-charts {
+        display: block;
+
+        .chart-card:nth-child(2) {
+            margin-top: 24px;
+        }
+
+        .card-table {
+            overflow-x: auto;
+        }
+    }
+}
